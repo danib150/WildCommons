@@ -33,27 +33,27 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 public class Translation {
 	
 	public static String of(@NonNull Material material) {
-		String translation = WildCommonsPlugin.materialTranslationsMap.get(material);
+		String translation = WildCommonsAPI.materialTranslationsMap.get(material);
 		return translation != null ? translation : material.toString();
 	}
 	
 	public static String of(@NonNull Enchantment enchant) {
-		String translation = WildCommonsPlugin.enchantmentTranslationsMap.get(enchant);
+		String translation = WildCommonsAPI.enchantmentTranslationsMap.get(enchant);
 		return translation != null ? translation : enchant.getName();
 	}
 	
 	public static String of(@NonNull PotionEffectType potionType) {
-		String translation = WildCommonsPlugin.potionEffectsTranslationsMap.get(potionType);
+		String translation = WildCommonsAPI.potionEffectsTranslationsMap.get(potionType);
 		return translation != null ? translation : potionType.getName();
 	}
 	
 	public static String of(@NonNull EntityType entityType) {
-		String translation = WildCommonsPlugin.entityTypesTranslationsMap.get(entityType);
+		String translation = WildCommonsAPI.entityTypesTranslationsMap.get(entityType);
 		return translation != null ? translation : entityType.toString();
 	}
 

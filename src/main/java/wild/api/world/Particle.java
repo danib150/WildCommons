@@ -34,7 +34,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import static wild.core.WildCommonsPlugin.nmsManager;
+import static wild.core.WildCommonsAPI.nmsManager;
 
 public enum Particle {
 	

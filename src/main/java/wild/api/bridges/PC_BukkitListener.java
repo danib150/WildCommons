@@ -43,14 +43,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import wild.api.bridges.CosmeticsBridge;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 //import wild.core.commands.FireworkCommand;
 
 class PC_BukkitListener implements Listener {
 	
 	protected static void enable() {
-		Bukkit.getPluginManager().registerEvents(new wild.api.bridges.PC_BukkitListener(), WildCommonsPlugin.instance);
+		Bukkit.getPluginManager().registerEvents(new wild.api.bridges.PC_BukkitListener(), WildCommonsAPI.instance.getPlugin());
 	}
 	
 	private PC_BukkitListener() { }

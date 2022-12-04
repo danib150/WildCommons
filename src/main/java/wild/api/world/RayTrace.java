@@ -30,11 +30,10 @@ package wild.api.world;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import wild.api.world.SightInfo;
 
 import java.util.List;
 
-import static wild.core.WildCommonsPlugin.nmsManager;
+import static wild.core.WildCommonsAPI.nmsManager;
 
 public class RayTrace {
 

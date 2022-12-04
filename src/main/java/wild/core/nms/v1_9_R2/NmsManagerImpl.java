@@ -91,7 +91,7 @@ import net.minecraft.server.v1_9_R2.WorldNBTStorage;
 import net.minecraft.server.v1_9_R2.WorldServer;
 import wild.api.WildCommons;
 import wild.api.world.SightInfo;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 import wild.core.nms.interfaces.FancyMessage;
 import wild.core.nms.interfaces.NmsManager;
 import wild.core.utils.MathUtils;
@@ -528,7 +528,7 @@ public class NmsManagerImpl implements NmsManager {
 			public void onProjectileHit(ProjectileHitEvent event) {
 				if (event.getEntityType() == EntityType.FISHING_HOOK) {
 					EntityFishingHook nmsFishingHook = ((CraftFish) event.getEntity()).getHandle();
-					Bukkit.getScheduler().runTask(WildCommonsPlugin.instance, () -> {
+					Bukkit.getScheduler().runTask(WildCommonsAPI.instance.getPlugin(), () -> {
 						if (nmsFishingHook.hooked != null) {
 							nmsFishingHook.hooked.damageEntity(DamageSource.projectile(nmsFishingHook, nmsFishingHook.owner), 0.0F);
 						}
@@ -536,7 +536,7 @@ public class NmsManagerImpl implements NmsManager {
 				}
 			}
 			
-		}, WildCommonsPlugin.instance);
+		}, WildCommonsAPI.instance.getPlugin());
 	}
 
 	@Override

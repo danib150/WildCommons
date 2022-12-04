@@ -70,7 +70,7 @@ import wild.api.item.BookTutorial;
 import wild.api.item.CustomSkullAdapter;
 import wild.api.item.ItemBuilder;
 import wild.core.WildCommonsPermissions;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 import wild.core.utils.GenericUtils;
 import wild.core.utils.ReflectionUtils;
 
@@ -310,7 +310,7 @@ public class WildCommonsCommand extends SubCommandFramework {
 		
 		CommandValidate.isTrue(bookFile.isFile(), "File non trovato.");
 		
-		new BookTutorial(WildCommonsPlugin.instance, bookFile, "BookCommand", "WildCommons").giveTo(player);
+		new BookTutorial(WildCommonsAPI.instance.getPlugin(), bookFile, "BookCommand", "WildCommons").giveTo(player);
 		player.sendMessage(ChatColor.GREEN + "Hai ricevuto il libro!");
 	}
 	
@@ -331,28 +331,28 @@ public class WildCommonsCommand extends SubCommandFramework {
 			List<String> missingPotionEffects = Lists.newArrayList();
 			List<String> missingEntityTypes = Lists.newArrayList();
 			
-			for (Entry<Material, String> entry : WildCommonsPlugin.materialTranslationsMap.entrySet()) {
+			for (Entry<Material, String> entry : WildCommonsAPI.materialTranslationsMap.entrySet()) {
 				if (entry.getValue().equals(entry.getKey().toString())) {
 					// Se è uguale al toString(), non è tradotto.
 					missingMaterials.add(entry.getKey().toString());
 				}
 			}
 			
-			for (Entry<Enchantment, String> entry : WildCommonsPlugin.enchantmentTranslationsMap.entrySet()) {
+			for (Entry<Enchantment, String> entry : WildCommonsAPI.enchantmentTranslationsMap.entrySet()) {
 				if (entry.getValue().equals(entry.getKey().getName())) {
 					// Se è uguale al getName(), non è tradotto.
 					missingEnchants.add(entry.getKey().getName());
 				}
 			}
 			
-			for (Entry<PotionEffectType, String> entry : WildCommonsPlugin.potionEffectsTranslationsMap.entrySet()) {
+			for (Entry<PotionEffectType, String> entry : WildCommonsAPI.potionEffectsTranslationsMap.entrySet()) {
 				if (entry.getValue().equals(entry.getKey().getName())) {
 					// Se è uguale al getName(), non è tradotto.
 					missingPotionEffects.add(entry.getKey().getName());
 				}
 			}
 			
-			for (Entry<EntityType, String> entry : WildCommonsPlugin.entityTypesTranslationsMap.entrySet()) {
+			for (Entry<EntityType, String> entry : WildCommonsAPI.entityTypesTranslationsMap.entrySet()) {
 				if (entry.getValue().equals(entry.getKey().toString())) {
 					// Se è uguale al toString(), non è tradotto.
 					missingEntityTypes.add(entry.getKey().toString());
@@ -372,11 +372,11 @@ public class WildCommonsCommand extends SubCommandFramework {
 		
 		if (args[0].equalsIgnoreCase("reload")) {
 			try {
-				WildCommonsPlugin.instance.loadTranslations();
+				WildCommonsAPI.instance.loadTranslations();
 				sender.sendMessage(ChatColor.GREEN + "Traduzioni ricaricate.");
 			} catch (Exception ex) {
 				sender.sendMessage(ChatColor.RED + "Impossibile leggere le traduzioni, guarda la console.");
-				WildCommonsPlugin.instance.getLogger().log(Level.WARNING, "Impossibile leggere le traduzioni", ex);
+				WildCommonsAPI.instance.getPlugin().getLogger().log(Level.WARNING, "Impossibile leggere le traduzioni", ex);
 			}
 			return;
 		}
@@ -389,7 +389,7 @@ public class WildCommonsCommand extends SubCommandFramework {
 		if (previousTask == null) {
 			LagtestRunnable newTask = new LagtestRunnable(sender, args.length > 0 && args[0].equalsIgnoreCase("-bar"));
 			LagtestRunnable.tasks.put(sender, newTask);
-			newTask.runTaskTimer(WildCommonsPlugin.instance, 1, 1);
+			newTask.runTaskTimer(WildCommonsAPI.instance.getPlugin(), 1, 1);
 			sender.sendMessage(ChatColor.GREEN + "Lagtest avviato.");
 			
 		} else {

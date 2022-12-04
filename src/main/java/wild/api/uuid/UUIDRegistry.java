@@ -39,10 +39,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import wild.api.util.CIString;
-import wild.api.uuid.APILimitException;
-import wild.api.uuid.ProfileNotFoundException;
-import wild.api.uuid.UUIDFetcher;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 import java.io.*;
 import java.util.Collection;
@@ -215,9 +212,9 @@ public class UUIDRegistry implements Listener {
 		if (saveFile != null) {
 			throw new IllegalArgumentException("Already initialized");
 		}
-		saveFile = new File(WildCommonsPlugin.instance.getDataFolder(), "uuid-registry.csv");
+		saveFile = new File(WildCommonsAPI.instance.getPlugin().getDataFolder(), "uuid-registry.csv");
 		uuidToNames = HashBiMap.create();
-		logger = WildCommonsPlugin.instance.getLogger();
+		logger = WildCommonsAPI.instance.getPlugin().getLogger();
 		
 		synchronized (saveFile) {
 			if (!saveFile.exists()) {
@@ -239,8 +236,8 @@ public class UUIDRegistry implements Listener {
 			}
 		}
 		
-		Bukkit.getPluginManager().registerEvents(new wild.api.uuid.UUIDRegistry(), WildCommonsPlugin.instance);
-		Bukkit.getScheduler().runTaskTimerAsynchronously(WildCommonsPlugin.instance, () -> {
+		Bukkit.getPluginManager().registerEvents(new wild.api.uuid.UUIDRegistry(), WildCommonsAPI.instance.getPlugin());
+		Bukkit.getScheduler().runTaskTimerAsynchronously(WildCommonsAPI.instance.getPlugin(), () -> {
 			if (needSave) {
 				save();
 			}
@@ -276,11 +273,11 @@ public class UUIDRegistry implements Listener {
 	}
 	
 	private static void runTaskAsync(Runnable task) {
-		Bukkit.getScheduler().runTaskAsynchronously(WildCommonsPlugin.instance, task);
+		Bukkit.getScheduler().runTaskAsynchronously(WildCommonsAPI.instance.getPlugin(), task);
 	}
 	
 	private static void runTaskLaterAsync(Runnable task, long ticks) {
-		Bukkit.getScheduler().runTaskLaterAsynchronously(WildCommonsPlugin.instance, task, ticks);
+		Bukkit.getScheduler().runTaskLaterAsynchronously(WildCommonsAPI.instance.getPlugin(), task, ticks);
 	}
 	
 }

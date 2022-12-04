@@ -30,7 +30,7 @@ package wild.api.sound;
 
 import com.google.common.collect.Maps;
 import org.bukkit.Sound;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 import java.util.Map;
 
@@ -76,7 +76,7 @@ public class SoundEnum {
 		if (sound != null) {
 			return sound;
 		} else {
-			WildCommonsPlugin.instance.getLogger().warning("Unknown or unmapped sound: " + enumName);
+			WildCommonsAPI.instance.getPlugin().getLogger().warning("Unknown or unmapped sound: " + enumName);
 			return missingSound;
 		}
 	}

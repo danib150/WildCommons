@@ -60,8 +60,6 @@ import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
 import io.netty.buffer.Unpooled;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_12_R1.AxisAlignedBB;
 import net.minecraft.server.v1_12_R1.BlockPosition;
 import net.minecraft.server.v1_12_R1.DamageSource;
@@ -88,7 +86,7 @@ import net.minecraft.server.v1_12_R1.WorldNBTStorage;
 import net.minecraft.server.v1_12_R1.WorldServer;
 import wild.api.WildCommons;
 import wild.api.world.SightInfo;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 import wild.core.nms.interfaces.FancyMessage;
 import wild.core.nms.interfaces.NmsManager;
 import wild.core.utils.MathUtils;
@@ -438,7 +436,7 @@ public class NmsManagerImpl implements NmsManager {
 			public void onProjectileHit(ProjectileHitEvent event) {
 				if (event.getEntityType() == EntityType.FISHING_HOOK) {
 					EntityFishingHook nmsFishingHook = ((CraftFish) event.getEntity()).getHandle();
-					Bukkit.getScheduler().runTask(WildCommonsPlugin.instance, () -> {
+					Bukkit.getScheduler().runTask(WildCommonsAPI.instance.getPlugin(), () -> {
 						if (nmsFishingHook.hooked != null) {
 							nmsFishingHook.hooked.damageEntity(DamageSource.projectile(nmsFishingHook, nmsFishingHook.owner), 0.0F);
 						}
@@ -446,7 +444,7 @@ public class NmsManagerImpl implements NmsManager {
 				}
 			}
 
-		}, WildCommonsPlugin.instance);
+		}, WildCommonsAPI.instance.getPlugin());
 	}
 
 	@Override
@@ -504,7 +502,7 @@ public class NmsManagerImpl implements NmsManager {
 		try {
 			throw new Exception();
 		} catch (Exception e) {
-			WildCommonsPlugin.instance.getLogger().log(Level.WARNING, "Deprecated method", e);
+			WildCommonsAPI.instance.getPlugin().getLogger().log(Level.WARNING, "Deprecated method", e);
 		}
 	}
 
@@ -512,7 +510,7 @@ public class NmsManagerImpl implements NmsManager {
 		try {
 			throw new Exception();
 		} catch (Exception e) {
-			WildCommonsPlugin.instance.getLogger().log(Level.WARNING, "Method not implemented", e);
+			WildCommonsAPI.instance.getPlugin().getLogger().log(Level.WARNING, "Method not implemented", e);
 		}
 	}
 

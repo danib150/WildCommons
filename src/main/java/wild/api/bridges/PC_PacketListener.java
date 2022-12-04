@@ -38,14 +38,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import wild.api.bridges.CosmeticsBridge;
 import wild.api.bridges.CosmeticsBridge.Status;
 import wild.api.bridges.protocollib.WrapperPlayClientWindowClick;
 import wild.api.bridges.protocollib.WrapperPlayServerSetSlot;
 import wild.api.bridges.protocollib.WrapperPlayServerTransaction;
 import wild.api.bridges.protocollib.WrapperPlayServerWindowItems;
 import wild.api.sound.EasySound;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 import java.util.Map;
 
@@ -54,7 +53,7 @@ class PC_PacketListener extends PacketAdapter {
 	protected static void enable() {
 		//WrappedChatComponent messageToFilter = WrappedChatComponent.fromJson("{'extra':['{null}'],'text':''}".replace("'", "\""));
 		AdapterParameteters params = PacketAdapter.params()
-				.plugin(WildCommonsPlugin.instance)
+				.plugin(WildCommonsAPI.instance.getPlugin())
 				.types(PacketType.Play.Server.CHAT, PacketType.Play.Client.WINDOW_CLICK)
 				.listenerPriority(ListenerPriority.NORMAL);
 		
@@ -158,7 +157,7 @@ class PC_PacketListener extends PacketAdapter {
 		windowItems.sendPacket(player);
 		setSlot.sendPacket(player);
 		
-		Bukkit.getScheduler().runTask(WildCommonsPlugin.instance, () -> {
+		Bukkit.getScheduler().runTask(WildCommonsAPI.instance.getPlugin(), () -> {
 			player.sendMessage(ChatColor.RED + finalErrorMessage);
 			EasySound.quickPlay(player, CosmeticsBridge.DENIED_COSMETIC_USE_SOUND);
 		});

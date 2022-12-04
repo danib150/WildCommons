@@ -32,7 +32,7 @@ import lombok.NonNull;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 
-import static wild.core.WildCommonsPlugin.nmsManager;
+import static wild.core.WildCommonsAPI.nmsManager;
 
 public class SilentFirework {
 

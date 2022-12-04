@@ -37,10 +37,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import wild.api.util.CaseInsensitiveMap;
-import wild.api.uuid.APILimitException;
-import wild.api.uuid.ProfileNotFoundException;
-import wild.api.uuid.UUIDExceptionHandler;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -98,7 +95,7 @@ public class UUIDFetcher {
 	}
 
 	public static UUID fetchUUID(String playerName) throws APILimitException, ProfileNotFoundException, Throwable {
-		if (WildCommonsPlugin.serverInitialized && Bukkit.isPrimaryThread()) {
+		if (WildCommonsAPI.serverInitialized && Bukkit.isPrimaryThread()) {
 			throw new IllegalStateException("Running from Bukkit primary thread");
 		}
 
@@ -134,7 +131,7 @@ public class UUIDFetcher {
 	}
 
 	public static String fetchName(UUID uuid) throws APILimitException, ProfileNotFoundException, Throwable {
-		if (WildCommonsPlugin.serverInitialized && Bukkit.isPrimaryThread()) {
+		if (WildCommonsAPI.serverInitialized && Bukkit.isPrimaryThread()) {
 			throw new IllegalStateException("Running from Bukkit primary thread");
 		}
 

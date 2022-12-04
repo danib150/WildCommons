@@ -36,7 +36,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import wild.core.WildCommonsPlugin;
+import wild.core.WildCommonsAPI;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -69,7 +69,7 @@ public class EconomyBridge {
         try {
             return getMoneyExact(player.getUniqueId());
         } catch (PlayerNotFoundException e) {
-            WildCommonsPlugin.instance.getLogger().log(Level.SEVERE, "Couldn't find money of online player " + player.getName() + "/" + player.getUniqueId(), e);
+            WildCommonsAPI.instance.getPlugin().getLogger().log(Level.SEVERE, "Couldn't find money of online player " + player.getName() + "/" + player.getUniqueId(), e);
             return BigDecimal.ZERO;
         }
     }
@@ -103,7 +103,7 @@ public class EconomyBridge {
         try {
             return hasMoney(player.getUniqueId(), amount);
         } catch (PlayerNotFoundException e) {
-            WildCommonsPlugin.instance.getLogger().log(Level.SEVERE, "Couldn't check money of online player " + player.getName() + "/" + player.getUniqueId(), e);
+            WildCommonsAPI.instance.getPlugin().getLogger().log(Level.SEVERE, "Couldn't check money of online player " + player.getName() + "/" + player.getUniqueId(), e);
             return false;
         }
     }
@@ -135,7 +135,7 @@ public class EconomyBridge {
         try {
             return takeMoney(player.getUniqueId(), amount);
         } catch (PlayerNotFoundException e) {
-            WildCommonsPlugin.instance.getLogger().log(Level.SEVERE, "Couldn't take money of online player " + player.getName() + "/" + player.getUniqueId(), e);
+            WildCommonsAPI.instance.getPlugin().getLogger().log(Level.SEVERE, "Couldn't take money of online player " + player.getName() + "/" + player.getUniqueId(), e);
             return false;
         }
     }
@@ -174,7 +174,7 @@ public class EconomyBridge {
         try {
             giveMoney(player.getUniqueId(), amount);
         } catch (PlayerNotFoundException e) {
-            WildCommonsPlugin.instance.getLogger().log(Level.SEVERE, "Couldn't give money to online player " + player.getName() + "/" + player.getUniqueId(), e);
+            WildCommonsAPI.instance.getPlugin().getLogger().log(Level.SEVERE, "Couldn't give money to online player " + player.getName() + "/" + player.getUniqueId(), e);
         }
     }
 

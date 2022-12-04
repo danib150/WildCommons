@@ -48,7 +48,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static wild.core.WildCommonsPlugin.nmsManager;
+import static wild.core.WildCommonsAPI.nmsManager;
 
 /**
  * E' conveniente importare tutti i metodi in modo statico con import wild.api.WildCommons.*;

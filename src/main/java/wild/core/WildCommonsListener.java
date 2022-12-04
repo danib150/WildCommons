@@ -51,11 +51,11 @@ public class WildCommonsListener implements Listener {
 	
 	@EventHandler (priority = EventPriority.NORMAL)
 	public void onWorldLoad(WorldInitEvent event) {
-		if (WildCommonsPlugin.disableWorldPlayerSave) {
+		if (WildCommonsAPI.disableWorldPlayerSave) {
 			try {
-				WildCommonsPlugin.nmsManager.disablePlayerSave(event.getWorld());
+				WildCommonsAPI.nmsManager.disablePlayerSave(event.getWorld());
 			} catch (Throwable t) {
-				WildCommonsPlugin.instance.getLogger().log(Level.SEVERE, "Impossibile disabilitare il salvataggio dei giocatori nel mondo " + event.getWorld().getName(), t);
+				WildCommonsAPI.instance.getPlugin().getLogger().log(Level.SEVERE, "Impossibile disabilitare il salvataggio dei giocatori nel mondo " + event.getWorld().getName(), t);
 			}
 		}
 	}
@@ -76,7 +76,7 @@ public class WildCommonsListener implements Listener {
 					icon.onClick((Player) event.getWhoClicked());
 					
 					if (icon.isCloseOnClick()) {
-						Bukkit.getScheduler().runTaskLater(WildCommonsPlugin.instance, () -> event.getWhoClicked().closeInventory(), 1);
+						Bukkit.getScheduler().runTaskLater(WildCommonsAPI.instance.getPlugin(), () -> event.getWhoClicked().closeInventory(), 1);
 					}
 				}
 			}

@@ -28,20 +28,12 @@
 */
 package wild.core;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.regex.Pattern;
+import java.util.logging.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Appender;
-import org.apache.logging.log4j.core.Layout;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.appender.RollingRandomAccessFileAppender;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.layout.PatternLayout;
-import org.apache.logging.log4j.core.pattern.RegexReplacement;
+import lombok.Generated;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -60,11 +52,10 @@ import wild.api.util.FileLogger;
 import wild.core.commands.FireworkCommand;
 import wild.core.commands.WildCommonsCommand;
 import wild.core.nms.interfaces.NmsManager;
-import wild.core.utils.ReflectionUtils;
 
-public class WildCommonsPlugin extends JavaPlugin {
+public class WildCommonsAPI {
 
-	public static WildCommonsPlugin instance;
+	public static WildCommonsAPI instance;
 	public static NmsManager nmsManager;
 	public static FileLogger mysqlErrorLogger;
 	public static boolean disableWorldPlayerSave;
@@ -74,13 +65,21 @@ public class WildCommonsPlugin extends JavaPlugin {
 	public static Map<Enchantment, String> enchantmentTranslationsMap = Maps.newHashMap();
 	public static Map<PotionEffectType, String> potionEffectsTranslationsMap = Maps.newHashMap();
 	public static Map<EntityType, String> entityTypesTranslationsMap = Maps.newHashMap();
-	
-	
-	@Override
-	public void onLoad() {
+
+	@Getter
+	public final JavaPlugin plugin;
+	public WildCommonsAPI(JavaPlugin plugin) {
+		this.plugin = plugin;
+	}
+
+	@Getter
+	public Logger logger;
+
+	public void initializeWildCommons() {
 		instance = this;
-		mysqlErrorLogger = new FileLogger(this, "mysql.error.log");
-		
+		mysqlErrorLogger = new FileLogger(plugin, "mysql.error.log");
+		logger = plugin.getLogger();
+
 		String version = WildCommons.getBukkitVersion();
 
 		if("v1_8_R3".equals(version)) {
@@ -109,7 +108,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		
 		// Disabilita eventualmente il salvataggio dei giocatori
 		try {
-			PluginConfig config = new PluginConfig(this, "config_worlds.yml");
+			PluginConfig config = new PluginConfig(plugin, "config_worlds.yml");
 			String configKey = "disablePlayerSave";
 			if (!config.isSet(configKey)) {
 				config.set(configKey, false);
@@ -118,43 +117,43 @@ public class WildCommonsPlugin extends JavaPlugin {
 			disableWorldPlayerSave = config.getBoolean(configKey);
 			
 		} catch (Exception ex) {
-			getLogger().log(Level.WARNING, "Impossibile leggere o salvare il file di configurazione", ex);
+			plugin.getLogger().log(Level.WARNING, "Impossibile leggere o salvare il file di configurazione", ex);
 			WildCommons.pauseThread(10000);
 			Bukkit.shutdown();
 			return;
 		}
 
 		try {
-			getDataFolder().mkdirs();
+			plugin.getDataFolder().mkdirs();
 			loadTranslations();
 		} catch (Exception ex) {
-			getLogger().log(Level.WARNING, "Impossibile leggere le traduzioni", ex);
+			plugin.getLogger().log(Level.WARNING, "Impossibile leggere le traduzioni", ex);
 			WildCommons.pauseThread(10000);
 			Bukkit.shutdown();
 			return;
 		}
+		load(plugin);
 	}
-	
-	@Override
-	public void onEnable() {
+
+	private void load(JavaPlugin plugin) {
 		try {
 			wild.api.uuid.PackageAccess.UUIDRegistry_init();
 		} catch (Exception ex) {
-			getLogger().log(Level.WARNING, "Impossibile leggere il registro degli UUID", ex);
+			plugin.getLogger().log(Level.WARNING, "Impossibile leggere il registro degli UUID", ex);
 			WildCommons.pauseThread(10000);
-			this.setEnabled(false);
+			plugin.getPluginLoader().disablePlugin(plugin);
 			Bukkit.shutdown();
 			return;
 		}
 		
 		// Registra il comando
-		new WildCommonsCommand(this, "wildcommons");
-		new FireworkCommand(this, "firework", "fw");
+		new WildCommonsCommand(plugin, "wildcommons");
+		new FireworkCommand(plugin, "firework", "fw");
 		
 		// Registra il listener
-		Bukkit.getPluginManager().registerEvents(new WildCommonsListener(), this);
+		Bukkit.getPluginManager().registerEvents(new WildCommonsListener(), plugin);
 		
-		Bukkit.getScheduler().runTaskLater(this, () -> {
+		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			serverInitialized = true;
 			
 			try {
@@ -175,8 +174,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		}, 1L);
 	}
 	
-	@Override
-	public void onDisable() {
+	public void saveUUIDRegistry_save() {
 		wild.api.uuid.PackageAccess.UUIDRegistry_save();
 	}
 	
@@ -185,7 +183,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		PluginConfig config;
 		boolean configChanged;
 		
-		config = new PluginConfig(this, "translations_materials.yml");
+		config = new PluginConfig(plugin, "translations_materials.yml");
 		configChanged = false;
 
 		for (Material material : Material.values()) {
@@ -219,7 +217,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		}
 		
 		enchantmentTranslationsMap.clear();
-		config = new PluginConfig(this, "translations_enchants.yml");
+		config = new PluginConfig(plugin, "translations_enchants.yml");
 		configChanged = false;
 
 		for (Enchantment enchant : Enchantment.values()) {
@@ -255,7 +253,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		}
 		
 		potionEffectsTranslationsMap.clear();
-		config = new PluginConfig(this, "translations_potions.yml");
+		config = new PluginConfig(plugin, "translations_potions.yml");
 		configChanged = false;
 
 		for (PotionEffectType potionType : PotionEffectType.values()) {
@@ -291,7 +289,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		}
 		
 		entityTypesTranslationsMap.clear();
-		config = new PluginConfig(this, "translations_entities.yml");
+		config = new PluginConfig(plugin, "translations_entities.yml");
 		configChanged = false;
 
 		for (EntityType entityType : EntityType.values()) {

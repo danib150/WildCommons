@@ -34,6 +34,7 @@ import com.earth2me.essentials.api.UserDoesNotExistException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.ess3.api.MaxMoneyException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import wild.core.WildCommonsAPI;
@@ -151,6 +152,9 @@ public class EconomyBridge {
             throw new PlayerNotFoundException(playerUUID.toString());
         } catch (NoLoanPermittedException e) {
             return false;
+        } catch (MaxMoneyException e) {
+            e.printStackTrace();
+            return true;
         }
     }
 
@@ -188,6 +192,8 @@ public class EconomyBridge {
             throw new PlayerNotFoundException(playerUUID.toString());
         } catch (NoLoanPermittedException e) {
             throw new RuntimeException("Unexpected exception", e);
+        } catch (MaxMoneyException e) {
+            e.printStackTrace();
         }
     }
 

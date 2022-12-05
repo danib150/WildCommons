@@ -40,7 +40,7 @@ import java.util.List;
 
 public class PagedMenu {
 	
-	private static final Sound PAGE_CHANGE_SOUND = Sound.NOTE_PLING;
+	private static final Sound PAGE_CHANGE_SOUND = Sound.BLOCK_NOTE_PLING;
 	
 	private final String name;
 	private final int slotsPerPage;

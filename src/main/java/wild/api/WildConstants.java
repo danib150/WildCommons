@@ -70,15 +70,13 @@ public class WildConstants {
 		public static String getTutorialBookAuthor(String mode) {
 			return "Wild Adventure";
 		}
-		
-		public static String getSidebarIP() {
-			return "   " + ChatColor.GRAY + "mc.WildAdventure.it" + "   ";
-		}
+
+
 
 		@Deprecated
 		public static void displayIP(Scoreboard scoreboard, Objective objective, int score) {
 			
-			String text = "   " + ChatColor.GRAY + "mc.WildAdventure.it" + "   ";
+			String text = "   " + ChatColor.GRAY + "mc.WarAccademy.it" + "   ";
 			
 			String[] parts = {"", "§r§r§r", ""}; // Il nome non deve essere mai vuoto!
 			parts[0] = text.substring(0, Math.min(text.length(), 16));

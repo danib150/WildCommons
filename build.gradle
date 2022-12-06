@@ -26,9 +26,9 @@ dependencies {
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.7.0";
 
     compileOnly('net.essentialsx:EssentialsX:2.19.7')
-    compileOnly("org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT")
-    compileOnly files('/Users/danielebruni/spigot-1.9.4.jar')
-    compileOnly files('/Users/danielebruni/Documents/BuildTools/spigot-1.8.8.jar')
+    compileOnly files("D:/1.12.2.jar")
+    compileOnly files("D:/1.9.4.jar")
+    compileOnly files("D:/1.8.8.jar")
     compileOnly 'org.projectlombok:lombok:1.18.24'
 
     compileOnly('org.apache.commons:commons-lang3:3.12.0')

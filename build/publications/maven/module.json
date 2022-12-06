@@ -27,11 +27,11 @@
         {
           "name": "WildCommons-1.0-SNAPSHOT.jar",
           "url": "WildCommons-1.0-SNAPSHOT.jar",
-          "size": 293673,
-          "sha512": "299f5ee6292d29f037a8810ae6c0cbc8d827fd3c1d860b68067c742fb3c9feeac65f0930c20262f3e1bf037295ab2f014bc27785768a53e751aed6579c35dda9",
-          "sha256": "ab6d3f0b7a10b58b8a14c5346a24bf5c5234c10f21c2019a3c5d5d8ab83501b6",
-          "sha1": "135e685f9010ef37d06b7bbeb4920b68b7d503b7",
-          "md5": "a2463d2cff4934b5c022d7e01f614f61"
+          "size": 293585,
+          "sha512": "9531327189d2aa3412087d564e7fad3780c5f02fd211dd86b6344ee3c64f22dd099cd5110386a9c32e4b1f8a570aa3114c9324b579e3649ec85dc0699c0095d7",
+          "sha256": "ab9b1d53dbe3ee791c966c28d362e742e687e75af2cb5a25ffde191bff903605",
+          "sha1": "7909ec5b50817b82cba436b865cd77cc021d63f1",
+          "md5": "8888fc86bc283faa745e41f7202e33a2"
         }
       ]
     },
@@ -48,11 +48,11 @@
         {
           "name": "WildCommons-1.0-SNAPSHOT.jar",
           "url": "WildCommons-1.0-SNAPSHOT.jar",
-          "size": 293673,
-          "sha512": "299f5ee6292d29f037a8810ae6c0cbc8d827fd3c1d860b68067c742fb3c9feeac65f0930c20262f3e1bf037295ab2f014bc27785768a53e751aed6579c35dda9",
-          "sha256": "ab6d3f0b7a10b58b8a14c5346a24bf5c5234c10f21c2019a3c5d5d8ab83501b6",
-          "sha1": "135e685f9010ef37d06b7bbeb4920b68b7d503b7",
-          "md5": "a2463d2cff4934b5c022d7e01f614f61"
+          "size": 293585,
+          "sha512": "9531327189d2aa3412087d564e7fad3780c5f02fd211dd86b6344ee3c64f22dd099cd5110386a9c32e4b1f8a570aa3114c9324b579e3649ec85dc0699c0095d7",
+          "sha256": "ab9b1d53dbe3ee791c966c28d362e742e687e75af2cb5a25ffde191bff903605",
+          "sha1": "7909ec5b50817b82cba436b865cd77cc021d63f1",
+          "md5": "8888fc86bc283faa745e41f7202e33a2"
         }
       ]
     }

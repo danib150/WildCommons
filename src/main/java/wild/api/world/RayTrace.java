@@ -79,6 +79,6 @@ public class RayTrace {
 	 * Controllo su una lista ristretta di giocatori e con un bounding box incrementato.
 	 */
 	public static SightInfo getSightIncludePlayers(Player player, List<Player> possibleTargets, double boundingBoxIncrement) {
-		return null; //nmsManager.getPlayerInSight(player, possibleTargets, boundingBoxIncrement);
+		return nmsManager.getPlayerInSight(player, possibleTargets, boundingBoxIncrement);
 	}
 }

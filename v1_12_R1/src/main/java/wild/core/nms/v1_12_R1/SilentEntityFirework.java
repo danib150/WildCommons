@@ -26,31 +26,21 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package nms.v1_12_R1;
+package wild.core.nms.v1_12_R1;
 
-import java.io.File;
+import net.minecraft.server.v1_12_R1.EntityFireworks;
+import net.minecraft.server.v1_12_R1.World;
 
-import net.minecraft.server.v1_12_R1.DataConverterManager;
-import net.minecraft.server.v1_12_R1.EntityHuman;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.ServerNBTManager;
+public class SilentEntityFirework extends EntityFireworks {
 
-public class ServerNBTManagerNoSave extends ServerNBTManager {
-
-	public ServerNBTManagerNoSave(File file, String s, boolean flag, DataConverterManager dataconvertermanager) {
-		super(file, s, flag, dataconvertermanager);
+	public SilentEntityFirework(World world) {
+		super(world);
+		setInvisible(true);
 	}
 
-	public void save(EntityHuman entityhuman) {
-		
+	@Override
+	public void B_() {
+		world.broadcastEntityEffect(this, (byte) 17);
+		this.die();
 	}
-
-	public NBTTagCompound load(EntityHuman entityhuman) {
-		return null;
-	}
-
-	public NBTTagCompound getPlayerData(String s) {
-		return null;
-	}
-
 }

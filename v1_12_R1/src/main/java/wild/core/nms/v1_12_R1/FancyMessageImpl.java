@@ -26,19 +26,19 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package nms.v1_9_R2;
+package wild.core.nms.v1_12_R1;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_9_R2.IChatBaseComponent;
-import net.minecraft.server.v1_9_R2.PacketPlayOutChat;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 
 import com.google.common.base.Joiner;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.json.compact.JSONException;
 import org.json.compact.JSONStringer;

@@ -26,7 +26,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package nms.v1_9_R2;
+package wild.core.nms.v1_9_R2;
 
 import net.minecraft.server.v1_9_R2.EntityFireworks;
 import net.minecraft.server.v1_9_R2.World;

@@ -82,6 +82,8 @@ public class WildCommonsPlugin extends JavaPlugin {
 		
 		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
+		System.out.println(version);
+
 		try {
 			String className = "wild.core.nms." + version + ".NmsManagerImpl";
 			Class<?> clazz = Class.forName(className);

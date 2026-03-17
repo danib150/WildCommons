@@ -38,10 +38,6 @@ import org.bukkit.entity.Player;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ru.tehkode.permissions.PermissionGroup;
-import ru.tehkode.permissions.PermissionManager;
-import ru.tehkode.permissions.PermissionUser;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class PexBridge {
 	

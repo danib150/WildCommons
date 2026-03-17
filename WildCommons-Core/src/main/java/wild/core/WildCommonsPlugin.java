@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import wild.api.uuid.PackageAccess;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
@@ -52,7 +53,6 @@ import org.bukkit.potion.PotionEffectType;
 import com.google.common.collect.Maps;
 
 import wild.api.WildCommons;
-import wild.api.bridges.BoostersBridge;
 import wild.api.bridges.CosmeticsBridge;
 import wild.api.bridges.EconomyBridge;
 import wild.api.bridges.PexBridge;
@@ -160,7 +160,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		try {
-			wild.api.uuid.PackageAccess.UUIDRegistry_init();
+			PackageAccess.UUIDRegistry_init();
 		} catch (Exception ex) {
 			getLogger().log(Level.WARNING, "Impossibile leggere il registro degli UUID", ex);
 			WildCommons.pauseThread(10000);
@@ -178,7 +178,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 		
 		Bukkit.getScheduler().runTaskLater(this, () -> {
 			serverInitialized = true;
-			
+
 			try {
 				if (Bukkit.getPluginManager().isPluginEnabled("Essentials")) {
 					EconomyBridge.setup();
@@ -186,7 +186,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
-			
+
 			try {
 				if (Bukkit.getPluginManager().isPluginEnabled("ProCosmetics")) {
 					CosmeticsBridge.setup();
@@ -194,7 +194,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
-			
+
 			try {
 				if (Bukkit.getPluginManager().isPluginEnabled("PermissionsEx")) {
 					PexBridge.setup();
@@ -202,20 +202,13 @@ public class WildCommonsPlugin extends JavaPlugin {
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
-			
-			try {
-				if (Bukkit.getPluginManager().isPluginEnabled("Boosters")) {
-					BoostersBridge.setup();
-				}
-			} catch (Throwable t) {
-				t.printStackTrace();
-			}
+
 		}, 1L);
 	}
 	
 	@Override
 	public void onDisable() {
-		wild.api.uuid.PackageAccess.UUIDRegistry_save();
+		PackageAccess.UUIDRegistry_save();
 	}
 	
 	public void loadTranslations() throws Exception {

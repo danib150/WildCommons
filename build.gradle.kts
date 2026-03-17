@@ -29,6 +29,11 @@ subprojects {
 
     }
 
+    dependencies {
+        compileOnly("org.projectlombok:lombok:1.18.44")
+        annotationProcessor("org.projectlombok:lombok:1.18.44")
+    }
+
     java {
 
         toolchain {
@@ -36,11 +41,6 @@ subprojects {
         }
 
         withSourcesJar()
-    }
-
-    tasks.withType<JavaCompile>().configureEach {
-        options.encoding = "UTF-8"
-        options.release.set(8)
     }
 
     tasks.withType<Javadoc>().configureEach {

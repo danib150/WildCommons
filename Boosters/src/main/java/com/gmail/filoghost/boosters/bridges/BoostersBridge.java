@@ -26,13 +26,12 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package wild.api.bridges;
-
+package com.gmail.filoghost.boosters.bridges;
+import com.gmail.filoghost.boosters.api.BoostersAPI;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
 
-import com.gmail.filoghost.boosters.api.BoostersAPI;
 import com.google.common.collect.Sets;
 
 import lombok.AccessLevel;

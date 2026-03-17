@@ -275,8 +275,8 @@ public class NmsManagerImpl implements NmsManager {
         ReflectionUtils.setPrivateField(teamUpdatePacket, "c", prefix);
         ReflectionUtils.setPrivateField(teamUpdatePacket, "d", suffix);
 
-        ReflectionUtils.setPrivateField(teamUpdatePacket, "i", Integer.valueOf(2));
-        ReflectionUtils.setPrivateField(teamUpdatePacket, "j", Integer.valueOf(3));
+        ReflectionUtils.setPrivateField(teamUpdatePacket, "i", 2);
+        System.out.println("DEBUG FIX sendTeamPrefixChangePacket");
 
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(teamUpdatePacket);
     }

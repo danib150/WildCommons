@@ -2,17 +2,13 @@ plugins {
     id("java")
 }
 
-group = "it.danielebruni.bwcrator"
-version = "unspecified"
-
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    compileOnly("org.spigotmc:spigot:1.9.4-R0.1-SNAPSHOT")
+    compileOnly(project(":WildCommons-Core"))
 }
 
 tasks.test {

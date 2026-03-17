@@ -42,7 +42,7 @@ import wild.api.sound.EasySound;
 
 public class PagedMenu {
 	
-	private static final Sound PAGE_CHANGE_SOUND = Sound.UI_BUTTON_CLICK;
+	private static final Sound PAGE_CHANGE_SOUND = Sound.CLICK;
 	
 	private final String name;
 	private final int slotsPerPage;

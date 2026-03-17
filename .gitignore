@@ -21,3 +21,11 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+build
+Boosters/build
+v1_8_R3/build
+v1_9_R2/build
+v_12_R1/build
+
+gradle.properties

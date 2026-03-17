@@ -32,6 +32,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import net.ess3.api.MaxMoneyException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -145,15 +146,17 @@ public class EconomyBridge {
 	public static boolean takeMoney(UUID playerUUID, BigDecimal amount) throws PlayerNotFoundException {
 		checkState();
 		checkNotNegative(amount);
-		
-		try {
-			Economy.substract(playerUUID, amount);
+
+
+        try {
+			Economy.subtract(playerUUID, amount);
 			return true;
-		} catch (UserDoesNotExistException e) {
+		} catch (UserDoesNotExistException notExistException) {
 			throw new PlayerNotFoundException(playerUUID.toString());
-		} catch (NoLoanPermittedException e) {
+        } catch (NoLoanPermittedException | MaxMoneyException e) {
 			return false;
-		}
+        }
+
 	}
 	
 	public static void giveMoney(Player player, long amount) {
@@ -190,8 +193,10 @@ public class EconomyBridge {
 			throw new PlayerNotFoundException(playerUUID.toString());
 		} catch (NoLoanPermittedException e) {
 			throw new RuntimeException("Unexpected exception", e);
-		}
-	}
+		} catch (MaxMoneyException e) {
+            throw new RuntimeException(e);
+        }
+    }
 	
 	private static void checkState() {
 		if (!hasValidEconomy()) {

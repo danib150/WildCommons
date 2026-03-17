@@ -53,7 +53,6 @@ import org.bukkit.potion.PotionEffectType;
 import com.google.common.collect.Maps;
 
 import wild.api.WildCommons;
-import wild.api.bridges.CosmeticsBridge;
 import wild.api.bridges.EconomyBridge;
 import wild.api.bridges.PexBridge;
 import wild.api.config.PluginConfig;
@@ -61,7 +60,6 @@ import wild.api.util.FileLogger;
 import wild.core.commands.FireworkCommand;
 import wild.core.commands.WildCommonsCommand;
 import wild.core.nms.interfaces.NmsManager;
-import wild.core.utils.ReflectionUtils;
 
 public class WildCommonsPlugin extends JavaPlugin {
 
@@ -82,54 +80,16 @@ public class WildCommonsPlugin extends JavaPlugin {
 		instance = this;
 		mysqlErrorLogger = new FileLogger(this, "mysql.error.log");
 		
-		String version = WildCommons.getBukkitVersion();
+		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
-		if ("v1_9_R2".equals(version)) {
-			nmsManager = new wild.core.nms.v1_9_R2.NmsManagerImpl();
-		} else if ("v1_12_R1".equals(version)) {
-			nmsManager = new wild.core.nms.v1_12_R1.NmsManagerImpl();
-		} else {
-			System.out.println(
-				" \n "
-			   + "\n  ######################## ATTENZIONE ########################"
-			   + "\n  #                                                          #"
-			   + "\n  #  WildCommons non e' aggiornato. Il server verra' spento. #"
-			   + "\n  #                                                          #"
-			   + "\n  ############################################################"
-			   + "\n "
-			   + "\n Versione: " + version
-			   + "\n "
-			);
-			
-			WildCommons.pauseThread(30000);
-			Bukkit.shutdown();
-			return;
-		}
-
-		// Rimuove i colori dai log
 		try {
-			LoggerContext context = (LoggerContext) LogManager.getContext(false);
-			Configuration config = context.getConfiguration();
-			for (Appender appender : config.getAppenders().values()) {
-				if (appender instanceof RollingRandomAccessFileAppender) {
-					// Modifica solo l'appender del file
-					RollingRandomAccessFileAppender fileAppender = (RollingRandomAccessFileAppender) appender;
-					Layout<? extends Serializable> layout = fileAppender.getLayout();
-					if (layout instanceof PatternLayout) {
-						PatternLayout patternLayout = (PatternLayout) layout;
-						
-						Object eventSerializer = ReflectionUtils.getPrivateField(PatternLayout.class, patternLayout, "eventSerializer");
-						
-						Field replaceField = eventSerializer.getClass().getDeclaredField("replace");
-						ReflectionUtils.setPrivateFinalField(eventSerializer, replaceField, RegexReplacement.createRegexReplacement(Pattern.compile("\\x1b\\[[0-9;]*m"), ""));
-					}
-				}
-			}
-		} catch (Throwable t) {
-			getLogger().log(Level.WARNING, "Impossibile filtrare i colori nella console", t);
+			String className = "wild.core.nms." + version + ".NmsManagerImpl";
+			Class<?> clazz = Class.forName(className);
+			nmsManager = (NmsManager) clazz.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new IllegalStateException("Unsupported server version: " + version, e);
 		}
-		
-		// Disabilita eventualmente il salvataggio dei giocatori
+
 		try {
 			PluginConfig config = new PluginConfig(this, "config_worlds.yml");
 			String configKey = "disablePlayerSave";
@@ -188,15 +148,7 @@ public class WildCommonsPlugin extends JavaPlugin {
 			}
 
 			try {
-				if (Bukkit.getPluginManager().isPluginEnabled("ProCosmetics")) {
-					CosmeticsBridge.setup();
-				}
-			} catch (Throwable t) {
-				t.printStackTrace();
-			}
-
-			try {
-				if (Bukkit.getPluginManager().isPluginEnabled("PermissionsEx")) {
+				if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
 					PexBridge.setup();
 				}
 			} catch (Throwable t) {

@@ -39,115 +39,96 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.cacheddata.CachedMetaData;
+import net.luckperms.api.model.user.User;
+import org.bukkit.plugin.RegisteredServiceProvider;
+
 public class PexBridge {
-	
+
 	private static final long CACHE_MILLIS = TimeUnit.SECONDS.toMillis(60);
 	private static final PrefixSuffix EMPTY_PREFIX_SUFFIX = new PrefixSuffix("", "");
-	
+
 	private static boolean enabled;
-	private static PermissionManager manager;
+	private static LuckPerms manager;
 	private static Map<Player, PrefixSuffixCache> cache;
 
 	public static void setup() {
 		if (enabled) return;
-		enabled = Bukkit.getPluginManager().isPluginEnabled("PermissionsEx");
-		
+
+		RegisteredServiceProvider<LuckPerms> provider =
+				Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+
+		enabled = provider != null;
+
 		if (enabled) {
-			manager = PermissionsEx.getPermissionManager();
+			manager = provider.getProvider();
 			cache = new WeakHashMap<>();
 		}
 	}
-	
+
 	public static PrefixSuffix getCachedPrefixSuffix(Player player) {
 		if (!enabled) {
 			return EMPTY_PREFIX_SUFFIX;
 		}
-		
+
 		PrefixSuffixCache prefixSuffixCache = cache.get(player);
 		long now = System.currentTimeMillis();
-		
+
 		if (prefixSuffixCache == null) {
 			prefixSuffixCache = new PrefixSuffixCache(getPrefixSuffix(player), now);
 			cache.put(player, prefixSuffixCache);
-			
+
 		} else if (now - prefixSuffixCache.lastUpdate > CACHE_MILLIS) {
 			prefixSuffixCache.prefixSuffix = getPrefixSuffix(player);
 			prefixSuffixCache.lastUpdate = now;
 		}
-		
+
 		return prefixSuffixCache.prefixSuffix;
 	}
-	
+
 	private static PrefixSuffix getPrefixSuffix(Player player) {
 		if (!enabled) {
 			return EMPTY_PREFIX_SUFFIX;
 		}
-		
-		String prefix = null;
-		String suffix = null;
-		
-		PermissionUser pexUser = manager.getUser(player);
-		String ownPrefix = pexUser.getOwnPrefix();
-		String ownSuffix = pexUser.getOwnSuffix();
-		
-		if (ownPrefix != null || ownSuffix != null) {
-			// Tiene i propri prefissi personalizzati
-			prefix = ownPrefix;
-			suffix = ownSuffix;
-			
-		} else {
-			// Cerca nel gruppo più alto
-			PermissionGroup[] groups = pexUser.getGroups();
-			if (groups != null && groups.length > 0) {
-				
-				PermissionGroup highestGroup = getHighestRankGroup(groups);
-				if (highestGroup != null) {
-					prefix = highestGroup.getPrefix();
-					suffix = highestGroup.getSuffix();
-				}
-			}
-		}
-		
+
+		User user = manager.getPlayerAdapter(Player.class).getUser(player);
+
+        CachedMetaData meta = user.getCachedData().getMetaData();
+
+		String prefix = meta.getPrefix();
+		String suffix = meta.getSuffix();
+
 		if (prefix == null) {
 			prefix = "";
 		}
 		if (suffix == null) {
 			suffix = "";
 		}
-		
+
 		return new PrefixSuffix(prefix, suffix);
 	}
-	
-	private static PermissionGroup getHighestRankGroup(PermissionGroup[] groups) {
-		PermissionGroup bestGroup = null;
-		int bestGroupRank = 0;
-		
-		for (PermissionGroup group : groups) {
-			if (bestGroup == null || group.getRank() < bestGroupRank) {
-				bestGroup = group;
-				bestGroupRank = group.getRank();
-			}
+
+	private static String getHighestRankGroup(Player player) {
+		if (!enabled) {
+			return "";
 		}
-		
-		return bestGroup;
+
+		User user = manager.getPlayerAdapter(Player.class).getUser(player);
+
+        String primaryGroup = user.getCachedData().getMetaData().getPrimaryGroup();
+		return primaryGroup != null ? primaryGroup : "";
 	}
-	
-	
+
 	@AllArgsConstructor(access = AccessLevel.PACKAGE)
 	@Getter
 	public static class PrefixSuffix {
-		
 		private final String prefix, suffix;
-		
 	}
-	
-	
+
 	@AllArgsConstructor
 	private static class PrefixSuffixCache {
-
 		private PrefixSuffix prefixSuffix;
 		private long lastUpdate;
-		
 	}
-
 }

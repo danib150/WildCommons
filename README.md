@@ -22,16 +22,10 @@ Questo fork introduce modifiche per migliorare:
 
 ## ⚠️ Requisiti e Note
 
-Questo progetto è rivolto a **sviluppatori esperti**:
-
-- Viene fornito **solo il codice sorgente** (nessun `.jar`)
-- Le **dipendenze non sono incluse**
-- Documentazione limitata ai commenti nel codice
-- Alcune funzionalità potrebbero essere legacy o specifiche del progetto originale
-- **Manutenzione a carico della community**
+Questo progetto non è ancora **PRODUCTION READY**:
 
 📌 Requisiti:
-- Java compatibile con Spigot/Paper
+- Sorgente compilato con Java 21 (Raccomando di utilizzare SportPaper per 1.8.8)
 - Lombok → https://projectlombok.org/
 
 ---

@@ -1,25 +1,99 @@
-# Plugins di Wild Adventure
-Questo ed altri plugins sono stati resi pubblici dopo la chiusura di Wild Adventure. Per maggiori informazioni, come l'elenco delle versioni Minecraft compatibili, consulta [questa pagina](https://wildadventure.it/plugins).
+# 🌿 Wild Adventure Plugins – Community Fork
 
-## Note per l'uso
-Questo materiale è rivolto ai **programmatori esperti** per i seguenti motivi:
+Questa repository è una **fork non ufficiale** dei plugin di Wild Adventure, mantenuta dalla community.
 
-* Viene fornito solo il codice sorgente, senza il plugin compilato.
-* Non vengono fornite le librerie da importare nell'ambiente di sviluppo.
-* Non viene fornita documentazione oltre ai (pochi) commenti nel codice.
-* Alcune funzionalità potrebbero essere specifiche di Wild Adventure, e quindi da rimuovere.
-* Il plugin potrebbe non funzionare su server con versioni o impostazioni diverse da quelle di Wild Adventure.
-* Non sono previsti aggiornamenti, perciò uno sviluppatore deve occuparsi della manutenzione del codice.
-* È necessario installare [Lombok](https://projectlombok.org/) nel proprio IDE e importarlo come libreria.
+👉 Obiettivo del progetto:  
+rendere il codice **compatibile sia con versioni legacy che moderne di Minecraft**.
 
+---
 
-## Licenza
-Questo materiale viene distribuito con una [licenza](LICENSE.txt) che contiene restrizioni.
+## 🚧 Stato del progetto
 
-In breve:
+- ✅ Supporto **Minecraft 1.8.8**
+- 🚧 Supporto **Minecraft 1.21.11 (Work in Progress)**
+- 🔧 Refactoring e miglioramenti continui
 
-* **Non puoi vendere questo plugin** o derivati, ma puoi distribuirli gratuitamente.
-* Puoi modificare questo plugin e utilizzarlo all'interno del tuo server.
-* Devi includere la licenza nei plugin derivati e mantenere gli header nel codice.
-* Non puoi usare il nome di Wild Adventure per promuovere eventuali plugin derivati.
-* Non ci assumiamo nessuna responsabilità per eventuali problemi derivanti dall'uso di questo plugin.
+Questo fork introduce modifiche per migliorare:
+- compatibilità cross-version
+- stabilità del codice
+- riutilizzabilità nei propri progetti
+
+---
+
+## ⚠️ Requisiti e Note
+
+Questo progetto è rivolto a **sviluppatori esperti**:
+
+- Viene fornito **solo il codice sorgente** (nessun `.jar`)
+- Le **dipendenze non sono incluse**
+- Documentazione limitata ai commenti nel codice
+- Alcune funzionalità potrebbero essere legacy o specifiche del progetto originale
+- **Manutenzione a carico della community**
+
+📌 Requisiti:
+- Java compatibile con Spigot/Paper
+- Lombok → https://projectlombok.org/
+
+---
+
+## 📦 WildCommons (Core)
+
+Questa fork utilizza una libreria core condivisa:
+
+```xml
+<dependency>
+  <groupId>it.danielebruni.wildadventure</groupId>
+  <artifactId>wildcommons-core</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+
+---
+
+## 🚀 Build automatiche
+
+Puoi scaricare le ultime build da GitHub Actions:
+
+👉 https://github.com/danib150/WildCommons/actions
+
+Utile per:
+- testare versioni aggiornate
+- sviluppo continuo
+- accedere a build WIP
+
+---
+
+## 🧩 Differenze rispetto all’originale
+
+Questa fork:
+
+- 🔄 Aggiorna il codice per versioni moderne di Minecraft
+- 🧹 Rimuove o adatta codice specifico di Wild Adventure
+- ⚙️ Migliora la compatibilità con diversi ambienti server
+- 🧪 Introduce modifiche sperimentali (soprattutto lato 1.21.x)
+
+---
+
+## 📜 Licenza
+
+Distribuito sotto la licenza originale di Wild Adventure:
+
+- ❌ Non puoi vendere questo plugin o derivati
+- ✅ Puoi modificarlo e usarlo liberamente
+- ✅ Puoi distribuirlo gratuitamente
+- 📌 Devi includere la licenza originale
+- 📌 Devi mantenere gli header nel codice
+- ❌ Non puoi usare il nome *Wild Adventure* per promuovere derivati
+
+⚠️ Gli autori non si assumono responsabilità per eventuali problemi.
+
+---
+
+## ❤️ Contributi
+
+Essendo una fork community-driven:
+
+- Non garantisco aggiornamenti per mancanza di tempo
+- Pull request benvenute
+- Segnalazioni bug apprezzate
+- Migliorie cross-version molto utili

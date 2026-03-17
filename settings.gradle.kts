@@ -8,6 +8,8 @@
 rootProject.name = "WildCommons"
 
 include("v1_8_R3")
-include("v_12_R1")
+include("v1_12_R1")
 include("v1_9_R2")
 include("WildCommons-Core")
+
+include("WildCommons-Plugin")

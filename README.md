@@ -83,11 +83,30 @@ Distribuito sotto la licenza originale di Wild Adventure:
 
 ---
 
-## ❤️ Contributi
+## 🌍 Progetti che utilizzano WildCommons
 
-Essendo una fork community-driven:
+Ecco alcuni progetti che utilizzano questa libreria core:
 
-- Non garantisco aggiornamenti per mancanza di tempo
-- Pull request benvenute
-- Segnalazioni bug apprezzate
-- Migliorie cross-version molto utili
+### 🎮 Rework di Plugin Minigame
+
+* **Bedwars**
+  🔗 https://github.com/danib150/Bedwars
+
+* **SurvivalGames**
+  🔗 https://github.com/danib150/SurvivalGames
+
+* **PvPGames**
+  🔗 https://github.com/danib150/PvPGames
+
+* **SkyWars**
+  🔗 https://github.com/danib150/SkyWars
+
+* **HungerGames**
+  🔗 https://github.com/danib150/HungerGames
+
+### ⚙️ Utility & Core Addons
+
+* **Boosters**
+  🔗 https://github.com/danib150/Boosters (Richiesto come dipendenza dai plugin Minigames)
+  
+---

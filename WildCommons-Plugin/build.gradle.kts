@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation(project(":WildCommons-Core"))
+    implementation(project(":v1_21_11"))
     implementation(project(":v1_8_R3"))
     implementation(project(":v1_9_R2"))
     implementation(project(":v1_12_R1"))
